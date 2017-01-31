@@ -4,7 +4,7 @@ stm32外部中断代码自动生成装置。
 
 ## 软件外观
 
-![software](.\Image\software.png)
+![software](./Image/software.png)
 
 ## 使用步骤
 
