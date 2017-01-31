@@ -3,20 +3,46 @@
 <pre>
 <h1>Build Log</h1>
 <h3>
+--------------------Configuration: Exti - Win32 Release--------------------
+</h3>
+<h3>Command Lines</h3>
+Creating command line "rc.exe /l 0x804 /fo"Release/Exti.res" /d "NDEBUG" /d "_AFXDLL" "G:\Core\MFC\Programming\Exti\Exti\Exti.rc"" 
+Creating temporary file "C:\Users\will\AppData\Local\Temp\RSP8E61.tmp" with contents
+[
+/nologo /MD /W3 /GX /O2 /D "WIN32" /D "NDEBUG" /D "_WINDOWS" /D "_AFXDLL" /D "_MBCS" /Fp"Release/Exti.pch" /Yu"stdafx.h" /Fo"Release/" /Fd"Release/" /FD /c 
+"G:\Core\MFC\Programming\Exti\Exti\DataNode.cpp"
+"G:\Core\MFC\Programming\Exti\Exti\Exti.cpp"
+"G:\Core\MFC\Programming\Exti\Exti\ExtiDlg.cpp"
+"G:\Core\MFC\Programming\Exti\Exti\MakeCode.cpp"
+]
+Creating command line "cl.exe @C:\Users\will\AppData\Local\Temp\RSP8E61.tmp" 
+Creating temporary file "C:\Users\will\AppData\Local\Temp\RSP8E62.tmp" with contents
+[
+/nologo /MD /W3 /GX /O2 /D "WIN32" /D "NDEBUG" /D "_WINDOWS" /D "_AFXDLL" /D "_MBCS" /Fp"Release/Exti.pch" /Yc"stdafx.h" /Fo"Release/" /Fd"Release/" /FD /c 
+"G:\Core\MFC\Programming\Exti\Exti\StdAfx.cpp"
+]
+Creating command line "cl.exe @C:\Users\will\AppData\Local\Temp\RSP8E62.tmp" 
+Creating command line "link.exe /nologo /subsystem:windows /incremental:no /pdb:"Release/Exti.pdb" /machine:I386 /out:"Release/Exti.exe"  .\Release\DataNode.obj .\Release\Exti.obj .\Release\ExtiDlg.obj .\Release\MakeCode.obj .\Release\StdAfx.obj .\Release\Exti.res "
+<h3>Output Window</h3>
+Compiling resources...
+Compiling...
+StdAfx.cpp
+Compiling...
+DataNode.cpp
+Exti.cpp
+ExtiDlg.cpp
+MakeCode.cpp
+Generating Code...
+Linking...
+
+
+
+<h3>Results</h3>
+Exti.exe - 0 error(s), 0 warning(s)
+<h3>
 --------------------Configuration: Exti - Win32 Debug--------------------
 </h3>
 <h3>Command Lines</h3>
-Creating temporary file "C:\Users\will\AppData\Local\Temp\RSP3E5E.tmp" with contents
-[
-/nologo /MDd /W3 /Gm /GX /ZI /Od /D "WIN32" /D "_DEBUG" /D "_WINDOWS" /D "_AFXDLL" /D "_MBCS" /FR"Debug/" /Fp"Debug/Exti.pch" /Yu"stdafx.h" /Fo"Debug/" /Fd"Debug/" /FD /GZ /c 
-"G:\Core\MFC\Programming\Exti\Exti\ExtiDlg.cpp"
-]
-Creating command line "cl.exe @C:\Users\will\AppData\Local\Temp\RSP3E5E.tmp" 
-Creating command line "link.exe /nologo /subsystem:windows /incremental:yes /pdb:"Debug/Exti.pdb" /debug /machine:I386 /out:"Debug/Exti.exe" /pdbtype:sept  .\Debug\DataNode.obj .\Debug\Exti.obj .\Debug\ExtiDlg.obj .\Debug\MakeCode.obj .\Debug\StdAfx.obj .\Debug\Exti.res "
-<h3>Output Window</h3>
-Compiling...
-ExtiDlg.cpp
-Linking...
 
 
 

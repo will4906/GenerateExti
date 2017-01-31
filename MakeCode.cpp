@@ -81,19 +81,6 @@ BOOL CMakeCode::NewFileExtiC()
 	stFile.WriteString("* Function: Initialize all Exti config\n");
 	stFile.WriteString("* Param: 		void\n");
 	stFile.WriteString("* Return: 	void\n");
-	stFile.WriteString("**********************************************************************/\n");stFile.WriteString("#include \"Exti.h\"\n");
-	stFile.WriteString("\n");
-	stFile.WriteString("/*********************************************************************\n");
-	stFile.WriteString("* Static Function Declaration\n");
-	stFile.WriteString("**********************************************************************/\n");
-	stFile.WriteString("static void InitExti(void);\n");
-	stFile.WriteString("static void InitNvic(void);\n");
-	stFile.WriteString("static void InitGpio(void);\n");
-	stFile.WriteString("\n");
-	stFile.WriteString("/*********************************************************************\n");
-	stFile.WriteString("* Function: Initialize all Exti config\n");
-	stFile.WriteString("* Param: 		void\n");
-	stFile.WriteString("* Return: 	void\n");
 	stFile.WriteString("**********************************************************************/\n");
 	stFile.WriteString("void InitExtiCon(void)\n");
 	stFile.WriteString("{\n");
@@ -104,7 +91,7 @@ BOOL CMakeCode::NewFileExtiC()
 	stFile.WriteString("\n");
 	stFile.WriteString("/*********************************************************************\n");
 	stFile.WriteString("* Function: Initialize the Gpio config\n");
-	stFile.WriteString("* Param: 	void\n");
+	stFile.WriteString("* Param: 		void\n");
 	stFile.WriteString("* Return: 	void\n");
 	stFile.WriteString("**********************************************************************/\n");
 	stFile.WriteString("static void InitGpio(void)\n");
@@ -128,7 +115,7 @@ BOOL CMakeCode::NewFileExtiC()
 	stFile.WriteString("\n");
 	stFile.WriteString("/*********************************************************************\n");
 	stFile.WriteString("* Function: Initialize the exti config\n");
-	stFile.WriteString("* Param: 	void\n");
+	stFile.WriteString("* Param: 		void\n");
 	stFile.WriteString("* Return: 	void\n");
 	stFile.WriteString("**********************************************************************/\n");
 	stFile.WriteString("static void InitExti(void)\n");
@@ -170,7 +157,7 @@ BOOL CMakeCode::NewFileExtiC()
 	stFile.WriteString("\n");
 	stFile.WriteString("/*********************************************************************\n");
 	stFile.WriteString("* Function: Initialize the Nvic config\n");
-	stFile.WriteString("* Param: 	void\n");
+	stFile.WriteString("* Param: 		void\n");
 	stFile.WriteString("* Return: 	void\n");
 	stFile.WriteString("**********************************************************************/\n");
 	stFile.WriteString("static void InitNvic(void)\n");
@@ -212,6 +199,7 @@ BOOL CMakeCode::NewFileExtiC()
 
 	CArray<int, int> fnArr;
 	CArray<int, int> tfArr;
+	CArray<int, int> zfArr;
 	for (i = 0; i < dataList->GetCount(); i ++)
 	{
 		dataNode = dataList->GetAt(dataList->FindIndex(i));
@@ -219,22 +207,36 @@ BOOL CMakeCode::NewFileExtiC()
 		CString strPin;
 		if (pin >= 0 && pin <= 4)
 		{
-			strPin.Format("%d", pin);
-			stFile.WriteString("/*********************************************************************\n");
-			stFile.WriteString("* Function: The interrupt handler function of the exti" + strPin + "\n");
-			stFile.WriteString("* Param: 	void\n");
-			stFile.WriteString("* Return: 	void\n");
-			stFile.WriteString("**********************************************************************/\n");
-			stFile.WriteString("void EXTI" + strPin + "_IRQHandler(void)\n");
-			stFile.WriteString("{\n");
-			stFile.WriteString("	if (EXTI_GetITStatus(EXTI_Line" + strPin + ") == SET)\n");
-			stFile.WriteString("	{\n");
-			stFile.WriteString("		//Add Code Here\n");
-			stFile.WriteString("	\n");
-			stFile.WriteString("		EXTI_ClearITPendingBit(EXTI_Line" + strPin + ");\n");
-			stFile.WriteString("	}\n");
-			stFile.WriteString("}\n");
-			stFile.WriteString("\n");
+			int j;
+			BOOL hasPin = FALSE;
+			for (j = 0; j < zfArr.GetSize(); j ++)
+			{
+				if (pin == zfArr.GetAt(j))
+				{
+					hasPin = TRUE;
+					break;
+				}
+			}
+			if (hasPin == FALSE)
+			{
+				strPin.Format("%d", pin);
+				stFile.WriteString("/*********************************************************************\n");
+				stFile.WriteString("* Function: The interrupt handler function of the exti" + strPin + "\n");
+				stFile.WriteString("* Param: 		void\n");
+				stFile.WriteString("* Return: 	void\n");
+				stFile.WriteString("**********************************************************************/\n");
+				stFile.WriteString("void EXTI" + strPin + "_IRQHandler(void)\n");
+				stFile.WriteString("{\n");
+				stFile.WriteString("	if (EXTI_GetITStatus(EXTI_Line" + strPin + ") == SET)\n");
+				stFile.WriteString("	{\n");
+				stFile.WriteString("		//Add Code Here\n");
+				stFile.WriteString("		\n");
+				stFile.WriteString("		EXTI_ClearITPendingBit(EXTI_Line" + strPin + ");\n");
+				stFile.WriteString("	}\n");
+				stFile.WriteString("}\n");
+				stFile.WriteString("\n");
+				zfArr.Add(pin);
+			}
 		}
 		else if (pin >= 5 && pin <= 9)
 		{
@@ -250,7 +252,7 @@ BOOL CMakeCode::NewFileExtiC()
 	{
 		stFile.WriteString("/*********************************************************************\n");//EXTI9_5_IRQHandler
 		stFile.WriteString("* Function: The interrupt handler function of the exti 5~9\n");
-		stFile.WriteString("* Param: 	void\n");
+		stFile.WriteString("* Param: 		void\n");
 		stFile.WriteString("* Return: 	void\n");
 		stFile.WriteString("**********************************************************************/\n");
 		stFile.WriteString("void EXTI9_5_IRQHandler(void)\n");
@@ -275,7 +277,7 @@ BOOL CMakeCode::NewFileExtiC()
 	{
 		stFile.WriteString("/*********************************************************************\n");//EXTI15_10_IRQHandler
 		stFile.WriteString("* Function: The interrupt handler function of the exti 10~15\n");
-		stFile.WriteString("* Param: 	void\n");
+		stFile.WriteString("* Param: 		void\n");
 		stFile.WriteString("* Return: 	void\n");
 		stFile.WriteString("**********************************************************************/\n");
 		stFile.WriteString("void EXTI15_10_IRQHandler(void)\n");
@@ -314,7 +316,7 @@ void CMakeCode::WriteFileDescription(CStdioFile &stFile, CString strFile)
 	stFile.WriteString("* FileName: " + strFile + "\n");
 	stFile.WriteString("* Author:		will4906\n");
 	stFile.WriteString("* Email:		553105821@qq.com\n");
-	stFile.WriteString("* Date:			" + strTime + "2017/1/30\n");
+	stFile.WriteString("* Date:			" + strTime + "\n");
 	stFile.WriteString("* Apache license:\n");
 	stFile.WriteString("	Copyright 2017 will4906\n");
 	stFile.WriteString("\n");
