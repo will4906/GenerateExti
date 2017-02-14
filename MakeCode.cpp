@@ -165,6 +165,7 @@ BOOL CMakeCode::NewFileExtiC()
 	stFile.WriteString("	NVIC_InitTypeDef NVIC_InitStructure;\n");
 	stFile.WriteString("	\n");
 
+	BOOL bFive = FALSE, bTen = FALSE;
 	for (i = 0; i < dataList->GetCount(); i ++)
 	{
 		dataNode = dataList->GetAt(dataList->FindIndex(i));
@@ -176,11 +177,27 @@ BOOL CMakeCode::NewFileExtiC()
 		}
 		else if (pin >= 5 && pin <= 9)
 		{
-			strPin = "9_5";
+			if (bFive == FALSE)
+			{
+				strPin = "9_5";
+				bFive = TRUE;
+			}
+			else
+			{
+				break;
+			}
 		}
 		else
 		{
-			strPin = "15_10";
+			if (bTen == FALSE)
+			{
+				strPin = "15_10";
+				bTen = TRUE;
+			}
+			else
+			{
+				break;
+			}	
 		}
 		stFile.WriteString("	NVIC_InitStructure.NVIC_IRQChannel = EXTI" + strPin + "_IRQn;\n");
 		int pre = dataNode.GetPrePri();
@@ -285,7 +302,7 @@ BOOL CMakeCode::NewFileExtiC()
 		for (i = 0; i < tfArr.GetSize(); i ++)
 		{
 			CString strPin;
-			int pin = fnArr.GetAt(i);
+			int pin = tfArr.GetAt(i);
 			strPin.Format("%d", pin);
 			
 			stFile.WriteString("	if (EXTI_GetITStatus(EXTI_Line" + strPin + ") == SET)\n");
